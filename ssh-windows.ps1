@@ -1,8 +1,8 @@
 $logo = @"
- ___  ___  _  _        ___                _           
-/ __|/ __|| || |      | _ \ ___  ___ ___ | |__ __ ___ 
-\__ \\__ \| __ |      |   // -_)(_-// _ \| |\ V // -_)
-|___/|___/|_||_|      |_|_\\___|/__/\___/|_| \_/ \___|
+ ___  ___  _  _        ___  _      
+/ __|/ __|| || |      | __|(_)__ __
+\__ \\__ \| __ |      | _| | |\ \ /
+|___/|___/|_||_|      |_|  |_|/_\_\
 by jamir
 "@
 
@@ -16,11 +16,11 @@ try {
     $sshCapability = Get-WindowsCapability -Online | Where-Object { $_.Name -like 'OpenSSH.Server*' }
 
     if ($sshCapability -and $sshCapability.State -eq "Installed") {
-        Write-Host "OpenSSH Server já está instalado."
+        Write-Host "OpenSSH Server is already installed."
     } else {
         # Adiciona o servidor OpenSSH
         Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 -ErrorAction Stop
-        Write-Host "OpenSSH Server instalado com sucesso!"
+        Write-Host "OpenSSH Server installed successfully!"
     }
 
     # Inicializa o serviço SSH
@@ -29,9 +29,9 @@ try {
     # Obtém o status do serviço SSH
     $sshService = Get-Service -Name sshd
 
-    Write-Host "Nome de usuário: $username"
-    Write-Host "Endereço IP da máquina: $ip"
-    Write-Host "Status do serviço SSH: $($sshService.Status)"
+    Write-Host "User: $username"
+    Write-Host "IP: $ip"
+    Write-Host "SSH Status: $($sshService.Status)"
 } catch {
-    Write-Host "Erro ao instalar ou iniciar o OpenSSH Server: $_"
+    Write-Host "Error installing or starting OpenSSH Server: $_"
 }
